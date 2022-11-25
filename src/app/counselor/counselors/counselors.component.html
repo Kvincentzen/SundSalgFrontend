@@ -1,0 +1,7 @@
+<ul class="counselors">
+    <li *ngFor="let counselor of counselors">
+        <a routerLink="/counselor/details/{{counselor.id}}">
+            {{counselor.name}}
+        </a>
+    </li>
+</ul>

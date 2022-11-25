@@ -1,0 +1,28 @@
+<div class="card card-body bg-light mb-2 mt-2">
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3">
+      {{product?.name}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Pris:</strong>
+    </div>
+    <div class="col-md-3">
+      {{product?.price}} kr
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Detaljer:</strong>
+    </div>
+    <div class="col-md-3">
+      {{product?.desc}}
+    </div>
+  </div>
+  <button type="button" id="purchase" (click)="purchaseProduct(product.id)"></button>
+  <button type="button" class="btn btn-link" (click)="editProduct(product.id)">Rediger Produkt</button>
+  <button type="button" class="btn btn-link" (click)="deleteProduct()">Slet Produkt</button>
+</div>
