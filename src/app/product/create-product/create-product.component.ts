@@ -33,7 +33,8 @@ export class CreateProductComponent implements OnInit {
       name: formValues.name,
       price: formValues.price,
       desc: formValues.desc,
-      picture: formValues.picture
+      picture: formValues.picture,
+      priceId: "",
     };
     this.repository.createProduct("api/product/create", product)
     .subscribe({

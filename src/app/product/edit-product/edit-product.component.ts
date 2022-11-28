@@ -48,7 +48,8 @@ export class EditProductComponent implements OnInit {
       name: formValues.name,
       price: formValues.price,
       desc: formValues.desc,
-      picture: ""
+      picture: "",
+      priceId: ""
     };
     this.repository.editProductData("api/product/update", product)
     .subscribe({

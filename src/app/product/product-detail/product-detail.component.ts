@@ -4,6 +4,8 @@ import { RepositoryService } from '../../shared/services/repository.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { loadStripe } from '@stripe/stripe-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,10 +13,13 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  public product: Product;
+  product: Product;
   isUserAdmin: boolean;
   errorMessage: string = '';
   showError: boolean;
+  bUrl: string = 'http://localhost:4200';
+  stripePromise = loadStripe(environment.stripe_key);
+  quantity = 1;
 
   constructor(
     private repository: RepositoryService,
@@ -45,11 +50,20 @@ export class ProductDetailComponent implements OnInit {
         error: (err: HttpErrorResponse) => console.log(err)
     })
   }
-  purchaseProduct = (id) => {
-
+  async purchaseProduct() {
+    const stripe = await this.stripePromise;
+    const { error } = await stripe.redirectToCheckout({
+      mode:'payment',
+      lineItems: [{ price: this.product.priceId, quantity: this.quantity }],
+      successUrl: `${this.bUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${this.bUrl}/failure`,
+    });
+    if (error) {
+      console.log(error);
+    }
   }
-  public editProduct = (id) => { 
-    const editUrl: string = `/product/edit/${id}`; 
+  public editProduct = () => { 
+    const editUrl: string = `/product/edit/${this.product.id}`;
     this.router.navigate([editUrl]); 
   }
   public deleteProduct = () => {

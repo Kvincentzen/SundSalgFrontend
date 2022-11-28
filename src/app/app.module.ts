@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { SuccessComponent } from './success/success.component';
+import { FailureComponent } from './failure/failure.component';
  
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -25,7 +27,9 @@ export function tokenGetter() {
     HomeComponent,
     MenuComponent,
     NotFoundComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    SuccessComponent,
+    FailureComponent
   ],
   imports: [
     BrowserModule,
@@ -34,13 +38,13 @@ export function tokenGetter() {
     CollapseModule.forRoot(),
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: 'success', component: SuccessComponent },
+      { path: 'failure', component: FailureComponent },
       { path: 'counselor', loadChildren: () => import('./counselor/counselor.module').then(m => m.CounselorModule) },
       { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
       { path: 'authentication', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule) },
       { path: '404', component : NotFoundComponent},
-      { path: 'forbidden', component: ForbiddenComponent },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: '**', redirectTo: '/404', pathMatch: 'full'}
+      { path: 'forbidden', component: ForbiddenComponent }
     ]),
     JwtModule.forRoot({
       config: {

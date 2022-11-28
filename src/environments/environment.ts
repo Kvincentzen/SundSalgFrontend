@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlAddress: 'https://localhost:5001'
+  urlAddress: 'https://localhost:5001',
+  stripe_key: 'pk_test_51Kj0sEJYRgEBAqqdZsJb2AeniopUguVataws8Z0kdmvGdxyfIrgVr4ufPaTnyLzhxWDJKLq0GUk0jgYWZuxk5YuG00KTnQO80x'
 };
 
 /*
